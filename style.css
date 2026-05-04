@@ -1,106 +1,44 @@
-:root {
-    --black: #000000;
-    --white: #ffffff;
-    --gray-light: #f9f9f9;
-    --gray-border: #e0e0e0;
-}
-
-body {
-    background-color: var(--white);
-    font-family: 'Inter', sans-serif;
-    color: var(--black);
-    margin: 0;
+.quiz-nav {
     display: flex;
-    justify-content: center;
-    padding-top: 50px;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
-.app-container {
-    width: 90%;
-    max-width: 900px;
-}
-
-/* Centered Bold Header */
-.centered-header {
-    text-align: center;
-    margin-bottom: 50px;
-}
-
-.main-title {
-    font-weight: 900;
-    font-size: 3.5rem;
-    letter-spacing: -2px;
-    margin: 0;
-}
-
-.sub-instruction {
-    font-weight: 400;
-    font-size: 1.2rem;
-    color: #666;
-    margin-top: 10px;
-}
-
-/* Clickable Grid */
-.path-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-}
-
-.path-card {
-    background: var(--white);
-    border: 3px solid var(--black);
-    padding: 30px;
+.back-link {
+    background: none;
+    border: none;
     font-weight: 700;
-    font-size: 1.1rem;
     cursor: pointer;
-    text-align: left;
-    transition: 0.2s ease-in-out;
+    text-decoration: underline;
+    font-size: 0.9rem;
 }
 
-.path-card:hover {
-    background: var(--black);
-    color: var(--white);
-    transform: translateY(-5px);
-}
-
-/* AI Factor Styling */
-.ai-factor-container {
-    margin-top: 60px;
-    border-top: 1px solid var(--gray-border);
-    padding-top: 30px;
-}
-
-.ai-chat-box {
-    background: var(--gray-light);
+.feedback-box {
+    margin-top: 30px;
     padding: 20px;
-    border-radius: 8px;
-    min-height: 80px;
-    margin-bottom: 15px;
-    font-size: 0.95rem;
-    line-height: 1.5;
+    border: 2px solid var(--black);
+    background-color: var(--gray-light);
+    animation: slideIn 0.3s ease-out;
 }
 
-.ai-input-group {
+.options-container {
     display: flex;
+    flex-direction: column;
     gap: 10px;
 }
 
-.ai-input-group input {
-    flex: 1;
-    padding: 12px;
-    border: 1px solid var(--gray-border);
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-.ai-input-group button {
+.primary-btn {
     background: var(--black);
     color: var(--white);
+    padding: 10px 20px;
     border: none;
-    padding: 0 25px;
     font-weight: 700;
     cursor: pointer;
+    margin-top: 10px;
 }
-
-/* Utility */
-.hidden { display: none; }
-.bold-text { font-weight: 900; }
