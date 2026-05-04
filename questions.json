@@ -1,29 +1,98 @@
-[
-  {
-    "id": 1,
-    "question": "What's your dream morning routine?",
-    "options": [
-      { "text": "Iced matcha & a 5-mile run", "profile": "sportsGirl" },
-      { "text": "Full glam & taking mirror selfies", "profile": "baddie" },
-      { "text": "Sleeping in & wearing fuzzy socks", "profile": "cozy" }
-    ]
-  },
-  {
-    "id": 2,
-    "question": "Pick your favorite accessory:",
-    "options": [
-      { "text": "Weighted wristbands or a Stanley cup", "profile": "sportsGirl" },
-      { "text": "Chunky gold hoops & designer bag", "profile": "baddie" },
-      { "text": "A giant claw clip & a knit blanket", "profile": "cozy" }
-    ]
-  },
-  {
-    "id": 3,
-    "question": "What’s the vibe for your room?",
-    "options": [
-      { "text": "Clean, organized, and lots of plants", "profile": "sportsGirl" },
-      { "text": "LED lights and a vanity mirror", "profile": "baddie" },
-      { "text": "Candles, pillows, and soft lighting", "profile": "cozy" }
-    ]
-  }
-]
+{
+  "AUD": [
+    {
+      "question": "Which of the following is NOT a component of an entity's internal control?",
+      "options": [
+        "Control risk",
+        "Control environment",
+        "Risk assessment",
+        "Monitoring"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Control risk is a component of the audit risk model, not a component of internal control. The components of internal control are (CRIME): Control activities, Risk assessment, Information and communication, Monitoring, and control Environment."
+    },
+    {
+      "question": "An auditor's primary consideration regarding an entity's internal control is whether they:",
+      "options": [
+        "Prevent management override",
+        "Relate to the control environment",
+        "Affect the financial statement assertions",
+        "Reflect management's philosophy"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The auditor's primary concern is whether a control helps prevent, or detect and correct, material misstatements in the financial statement assertions."
+    }
+  ],
+  "FAR": [
+    {
+      "question": "Which of the following should be disclosed in a summary of significant accounting policies?",
+      "options": [
+        "Composition of plant assets",
+        "Criteria for determining which investments are treated as cash equivalents",
+        "Maturities of long-term debt",
+        "Related party transactions"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The summary of significant accounting policies discloses the principles and methods chosen by management, such as the criteria for cash equivalents. The other options are disclosures made in other specific footnotes."
+    },
+    {
+      "question": "When a company declares a cash dividend, retained earnings is decreased on the:",
+      "options": [
+        "Date of payment",
+        "Date of record",
+        "Date of declaration",
+        "End of the fiscal year"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Retained earnings is decreased (debited) and a liability is created (credited) on the date of declaration."
+    }
+  ],
+  "REG": [
+    {
+      "question": "For a taxpayer to claim a dependency exemption for a qualifying child, which test is NOT required?",
+      "options": [
+        "Age test",
+        "Gross income test",
+        "Relationship test",
+        "Residency test"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The gross income test applies to a qualifying relative, NOT a qualifying child. A qualifying child must meet the Relationship, Age, Residency, and Support tests."
+    },
+    {
+      "question": "Under the Statute of Frauds, which of the following contracts must be in writing to be enforceable?",
+      "options": [
+        "A contract for the sale of goods for $300",
+        "A contract that can be performed within 6 months",
+        "A promise to pay the debt of another (suretyship)",
+        "A lease of real estate for 6 months"
+      ],
+      "correctAnswer": 2,
+      "explanation": "A promise to pay the debt of another (suretyship) falls under the Statute of Frauds and must be in writing. Sale of goods must be $500 or more (traditionally), and real estate/performance contracts generally must exceed 1 year."
+    }
+  ],
+  "BAR": [
+    {
+      "question": "In a variance analysis, if the actual cost of direct materials is less than the standard cost, the resulting variance is:",
+      "options": [
+        "Unfavorable",
+        "Favorable",
+        "Neutral",
+        "Irrelevant"
+      ],
+      "correctAnswer": 1,
+      "explanation": "When actual costs are less than standard (budgeted) costs, it saves the company money, resulting in a favorable variance."
+    },
+    {
+      "question": "Which valuation method uses the present value of expected future cash flows?",
+      "options": [
+        "Market approach",
+        "Cost approach",
+        "Income approach",
+        "Replacement approach"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The income approach values an asset or business by calculating the present value of its expected future cash flows (e.g., Discounted Cash Flow analysis)."
+    }
+  ]
+}
