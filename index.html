@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PrepMaster | Professional Interview Simulator</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <title>Interview Simulator | Professional Prep</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,38 +12,51 @@
     <div class="app-container">
         <!-- Path Selection -->
         <div id="selection-screen">
-            <header>
-                <h1>Interview Simulator</h1>
-                <p>Select your target career path to begin preparation.</p>
+            <header class="centered-header">
+                <h1 class="main-title">INTERVIEW SIMULATOR</h1>
+                <p class="sub-instruction">Select your target career path to begin preparation.</p>
             </header>
+            
             <div class="path-grid">
-                <div class="path-card" onclick="selectPath('tax')">Tax</div>
-                <div class="path-card" onclick="selectPath('audit')">Audit</div>
-                <div class="path-card" onclick="selectPath('investmentBanking')">Investment Banking</div>
-                <div class="path-card" onclick="selectPath('salesTrading')">Sales & Trading</div>
+                <button class="path-card" onclick="selectPath('tax')">TAX</button>
+                <button class="path-card" onclick="selectPath('audit')">AUDIT</button>
+                <button class="path-card" onclick="selectPath('investmentBanking')">INVESTMENT BANKING</button>
+                <button class="path-card" onclick="selectPath('salesTrading')">SALES & TRADING</button>
             </div>
         </div>
 
         <!-- Simulator Screen -->
         <div id="quiz-screen" class="hidden">
             <div class="status-bar">
-                <span id="level-indicator">Level 1</span>
+                <span id="level-indicator">LEVEL 1</span>
                 <div class="progress-bar"><div id="progress-fill"></div></div>
             </div>
-            <h2 id="question-text">Loading simulation...</h2>
+            <h2 id="question-text">Initializing simulation...</h2>
             <div id="options-list"></div>
         </div>
 
         <!-- Performance Review -->
         <div id="results-screen" class="hidden">
-            <h2>Simulation Complete</h2>
+            <h2 class="bold-text">SIMULATION COMPLETE</h2>
             <div class="score-box">
                 <h3 id="career-path"></h3>
                 <h1 id="final-score"></h1>
             </div>
             <p><strong>Top Firm Ratings for this path:</strong></p>
             <p id="firm-info"></p>
-            <button class="primary-btn" onclick="location.reload()">Restart Simulation</button>
+            <button class="primary-btn" onclick="location.reload()">RESTART SIMULATION</button>
+        </div>
+
+        <!-- AI Factor Component -->
+        <div class="ai-factor-container">
+            <h3><span class="ai-spark">✦</span> AI CAREER ASSISTANT</h3>
+            <div id="ai-chat-output" class="ai-chat-box">
+                How can I help you prepare today? Ask me about specific interview questions or industry tips.
+            </div>
+            <div class="ai-input-group">
+                <input type="text" id="ai-user-input" placeholder="Ask AI a question...">
+                <button onclick="askAI()">ASK</button>
+            </div>
         </div>
     </div>
 
