@@ -3,55 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pink Wardrobe & Beauty</title>
-    <!-- Importing Poppins for a clean, modern fashion look -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Magical CPA Prep</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 <body>
+    <div class="floating-characters">
+        <div class="character mickey">🐭</div>
+        <div class="character minnie">🎀</div>
+        <div class="character elsa">❄️</div>
+        <div class="character anna">🌻</div>
+    </div>
 
-    <div class="app-card">
-        <header>
-            <h1>Pink Wardrobe ✨</h1>
-            <p>Your Personalized Style Curator</p>
-        </header>
-
-        <!-- Quiz Screen -->
-        <div id="quiz-screen">
-            <div class="progress-container">
-                <div class="progress-bar"><div id="progress-fill"></div></div>
-            </div>
-            <h2 id="question-text">Finding your aesthetic...</h2>
-            <div id="options-list">
-                <!-- JavaScript will inject buttons here -->
-            </div>
-        </div>
-
-        <!-- Results Screen (Hidden until quiz is done) -->
-        <div id="results-screen" class="hidden">
-            <div class="result-header">
-                <div class="icon-badge">💖</div>
-                <h2>You are a <span id="winning-profile"></span>!</h2>
-            </div>
-            
-            <p id="profile-description"></p>
-            
-            <div class="shop-section">
-                <h3>Shop Your Vibe:</h3>
-                <div id="links-container">
-                    <!-- Shop links will appear here -->
+    <div id="app-container">
+        <div id="home-screen" class="screen active">
+            <h1>✨ Magical CPA Prep ✨</h1>
+            <div class="stats-board">
+                <h2>Your Progress</h2>
+                <p>Level: <span id="user-level">1 (Mouseketeer)</span></p>
+                <div class="progress-bar-container">
+                    <div id="overall-progress" class="progress-fill"></div>
                 </div>
             </div>
             
-            <div class="actions">
-                <button class="retry-btn" onclick="location.reload()">Start Over</button>
-                <br>
-                <a href="https://po164-coder.github.io/PalakO.github.io/" class="back-link">← Back to Portfolio</a>
+            <div class="section-buttons">
+                <button onclick="startAIQuiz()">🤖 AI Study Buddy Pre-Quiz</button>
+                <button class="btn-aud" onclick="startQuiz('AUD')">Take AUD Exam</button>
+                <button class="btn-far" onclick="startQuiz('FAR')">Take FAR Exam</button>
+                <button class="btn-reg" onclick="startQuiz('REG')">Take REG Exam</button>
+                <button class="btn-bar" onclick="startQuiz('BAR')">Take BAR Exam</button>
             </div>
+        </div>
+
+        <div id="ai-screen" class="screen">
+            <h2>🤖 Simulated AI Study Buddy</h2>
+            <p>Let's warm up those brain cells before the big test!</p>
+            <div id="ai-flashcard">
+                <p id="ai-question" class="question-text"></p>
+                <button id="reveal-btn" onclick="revealAIAanswer()">Reveal Answer</button>
+                <p id="ai-answer" class="hidden"></p>
+            </div>
+            <button class="btn-home" onclick="goHome()">Back to Home</button>
+        </div>
+
+        <div id="quiz-screen" class="screen">
+            <h2 id="quiz-title">Section Name</h2>
+            <div class="progress-bar-container">
+                <div id="quiz-progress" class="progress-fill"></div>
+            </div>
+            
+            <div id="question-container">
+                <h3 id="question-text">Question goes here</h3>
+                <div id="options-container"></div>
+            </div>
+
+            <div id="explanation-box" class="hidden">
+                <h3>Whoops! 🎊</h3>
+                <p id="explanation-text"></p>
+                <button onclick="nextQuestion()">Next Question</button>
+            </div>
+            
+            <button id="end-quiz-btn" class="hidden btn-home" onclick="goHome()">Finish & Save Progress</button>
         </div>
     </div>
 
-    <!-- Ensure your app.js file is in the same folder -->
     <script src="app.js"></script>
 </body>
 </html>
