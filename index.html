@@ -3,55 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pink Wardrobe & Beauty</title>
-    <!-- Importing Poppins for a clean, modern fashion look -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>PrepMaster | Professional Interview Simulator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="app-card">
-        <header>
-            <h1>Pink Wardrobe ✨</h1>
-            <p>Your Personalized Style Curator</p>
-        </header>
-
-        <!-- Quiz Screen -->
-        <div id="quiz-screen">
-            <div class="progress-container">
-                <div class="progress-bar"><div id="progress-fill"></div></div>
-            </div>
-            <h2 id="question-text">Finding your aesthetic...</h2>
-            <div id="options-list">
-                <!-- JavaScript will inject buttons here -->
+    <div class="app-container">
+        <!-- Path Selection -->
+        <div id="selection-screen">
+            <header>
+                <h1>Interview Simulator</h1>
+                <p>Select your target career path to begin preparation.</p>
+            </header>
+            <div class="path-grid">
+                <div class="path-card" onclick="selectPath('tax')">Tax</div>
+                <div class="path-card" onclick="selectPath('audit')">Audit</div>
+                <div class="path-card" onclick="selectPath('investmentBanking')">Investment Banking</div>
+                <div class="path-card" onclick="selectPath('salesTrading')">Sales & Trading</div>
             </div>
         </div>
 
-        <!-- Results Screen (Hidden until quiz is done) -->
+        <!-- Simulator Screen -->
+        <div id="quiz-screen" class="hidden">
+            <div class="status-bar">
+                <span id="level-indicator">Level 1</span>
+                <div class="progress-bar"><div id="progress-fill"></div></div>
+            </div>
+            <h2 id="question-text">Loading simulation...</h2>
+            <div id="options-list"></div>
+        </div>
+
+        <!-- Performance Review -->
         <div id="results-screen" class="hidden">
-            <div class="result-header">
-                <div class="icon-badge">💖</div>
-                <h2>You are a <span id="winning-profile"></span>!</h2>
+            <h2>Simulation Complete</h2>
+            <div class="score-box">
+                <h3 id="career-path"></h3>
+                <h1 id="final-score"></h1>
             </div>
-            
-            <p id="profile-description"></p>
-            
-            <div class="shop-section">
-                <h3>Shop Your Vibe:</h3>
-                <div id="links-container">
-                    <!-- Shop links will appear here -->
-                </div>
-            </div>
-            
-            <div class="actions">
-                <button class="retry-btn" onclick="location.reload()">Start Over</button>
-                <br>
-                <a href="YOUR_PORTFOLIO_URL_HERE" class="back-link">← Back to Portfolio</a>
-            </div>
+            <p><strong>Top Firm Ratings for this path:</strong></p>
+            <p id="firm-info"></p>
+            <button class="primary-btn" onclick="location.reload()">Restart Simulation</button>
         </div>
     </div>
 
-    <!-- Ensure your app.js file is in the same folder -->
     <script src="app.js"></script>
 </body>
 </html>
