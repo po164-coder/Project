@@ -1,86 +1,151 @@
-const storeData = {
-    sportsGirl: {
-        title: "The Sports Girlie",
-        desc: "You're high-energy and love the 'Active' lifestyle. You need high-performance gear that looks cute at the gym and the grocery store.",
-        links: [
-            { name: "Alo Yoga - New Arrivals", url: "https://www.aloyoga.com/?__a=0" },
-            { name: "Lululemon - Bestsellers", url: "https://shop.lululemon.com/" },
-            { name: "Nike - Women's Training", url: "https://www.nike.com/w/womens-training-gym-shoes-5e1x6zy7ok" }
-        ]
-    },
-    baddie: {
-        title: "The Baddie",
-        desc: "Main character energy only. You love a bold fit, trendy denim, and looks that turn heads.",
-        links: [
-            { name: "Garage - Trending Now", url: "https://www.garageclothing.com/us/?srsltid=AfmBOopMkVT4smSMISMYK4vT4KNDMEgKBxdoXPkE_UfnoJ06I09A3j_y" },
-            { name: "Princess Polly - Bestsellers", url: "https://www.princesspolly.com/collections/best-sellers" },
-            { name: "Hollister - Gilly Hicks", url: "https://www.hollisterco.com/shop/us/gilly-hicks" }
-        ]
-    },
-    cozy: {
-        title: "The Cozy Queen",
-        desc: "Comfort is your top priority. You live in soft fabrics, oversized hoodies, and neutral tones.",
-        links: [
-            { name: "Hollister - Cozy Collection", url: "https://www.hollisterco.com/shop/us/?cmp=PDS:EVG20:HCo:D:US:X:GGL:X:BST:X:X:X:X:x:HCO_Google_Search_DC_Brand-TM_US_Core_X_Brand_US_General_Hollister+Core_Exact_hollister&gclsrc=aw.ds&gad_source=1&gad_campaignid=20407526776&gbraid=0AAAAADw3OcLJHZsgZrrXq5mDqp4dR0srX&gclid=CjwKCAjw5NvPBhAoEiwA_2egfr2gG0X5kMl-n4CZg0_6Bc17W-E_OLXzS1tytl-kexiRMByfu7FSkBoCk94QAvD_BwE" },
-            { name: "Skims - Lounge", url: "https://skims.com/collections/lounge" },
-            { name: "Aritzia - CozyAF", url: "https://www.aritzia.com/us/en/brands/tna/cozyaf" }
-        ]
-    }
-};
+let allQuestions = {};
+let currentSection = '';
+let currentQuestionIndex = 0;
+let score = 0;
+let totalQuestionsAttempted = 0;
 
-let questions = [];
-let currentIdx = 0;
-let points = { sportsGirl: 0, baddie: 0, cozy: 0 };
-
+// Load questions on startup
 fetch('questions.json')
-    .then(res => res.json())
+    .then(response => response.json())
     .then(data => {
-        questions = data;
-        loadQuestion();
-    });
+        allQuestions = data;
+        updateHomeProgress();
+    })
+    .catch(error => console.error("Error loading questions:", error));
+
+// --- Navigation ---
+function showScreen(screenId) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(screenId).classList.add('active');
+}
+
+function goHome() {
+    updateHomeProgress();
+    showScreen('home-screen');
+}
+
+// --- AI Study Buddy Logic ---
+const aiFlashcards = [
+    { q: "What are the components of the Fraud Triangle?", a: "Opportunity, Pressure (Incentive), and Rationalization." },
+    { q: "What is the basic Accounting Equation?", a: "Assets = Liabilities + Equity." },
+    { q: "How do you calculate the current ratio?", a: "Current Assets / Current Liabilities." }
+];
+let currentAIIndex = 0;
+
+function startAIQuiz() {
+    showScreen('ai-screen');
+    currentAIIndex = Math.floor(Math.random() * aiFlashcards.length);
+    document.getElementById('ai-question').innerText = aiFlashcards[currentAIIndex].q;
+    document.getElementById('ai-answer').innerText = aiFlashcards[currentAIIndex].a;
+    document.getElementById('ai-answer').classList.add('hidden');
+    document.getElementById('reveal-btn').classList.remove('hidden');
+}
+
+function revealAIAanswer() {
+    document.getElementById('ai-answer').classList.remove('hidden');
+    document.getElementById('reveal-btn').classList.add('hidden');
+}
+
+// --- Main Quiz Logic ---
+function startQuiz(section) {
+    currentSection = section;
+    currentQuestionIndex = 0;
+    score = 0;
+    document.getElementById('quiz-title').innerText = `${section} Exam`;
+    document.getElementById('end-quiz-btn').classList.add('hidden');
+    showScreen('quiz-screen');
+    loadQuestion();
+}
 
 function loadQuestion() {
-    const q = questions[currentIdx];
-    document.getElementById('question-text').innerText = q.question;
-    const list = document.getElementById('options-list');
-    list.innerHTML = '';
+    const qData = allQuestions[currentSection][currentQuestionIndex];
+    document.getElementById('question-text').innerText = `${currentQuestionIndex + 1}. ${qData.question}`;
     
-    document.getElementById('progress-fill').style.width = `${((currentIdx) / questions.length) * 100}%`;
+    const optionsContainer = document.getElementById('options-container');
+    optionsContainer.innerHTML = '';
+    
+    qData.options.forEach((opt, index) => {
+        const btn = document.createElement('button');
+        btn.innerText = opt;
+        btn.className = 'option-btn';
+        btn.onclick = () => checkAnswer(index, btn, qData);
+        optionsContainer.appendChild(btn);
+    });
 
-    q.options.forEach(opt => {
-        const btn = document.createElement('div');
-        btn.className = 'option-card';
-        btn.innerText = opt.text;
-        btn.onclick = () => {
-            points[opt.profile]++;
-            currentIdx++;
-            if(currentIdx < questions.length) loadQuestion();
-            else showResults();
-        };
-        list.appendChild(btn);
+    document.getElementById('explanation-box').classList.add('hidden');
+    updateProgressBar();
+}
+
+function checkAnswer(selectedIndex, btnElement, qData) {
+    const buttons = document.querySelectorAll('.option-btn');
+    buttons.forEach(b => b.disabled = true); // Disable further clicks
+
+    totalQuestionsAttempted++;
+
+    if (selectedIndex === qData.correctAnswer) {
+        btnElement.classList.add('correct');
+        score++;
+        setTimeout(nextQuestion, 1000); // Auto-advance if correct
+    } else {
+        btnElement.classList.add('wrong');
+        buttons[qData.correctAnswer].classList.add('correct');
+        
+        // The requested feature: Confetti on WRONG answers!
+        triggerWrongConfetti();
+        
+        const expBox = document.getElementById('explanation-box');
+        document.getElementById('explanation-text').innerText = qData.explanation;
+        expBox.classList.remove('hidden');
+    }
+}
+
+function triggerWrongConfetti() {
+    confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#E23636', '#000000'] // Darker/Red confetti for failure!
     });
 }
 
-function showResults() {
-    document.getElementById('quiz-screen').classList.add('hidden');
-    document.getElementById('results-screen').classList.remove('hidden');
-    document.getElementById('progress-fill').style.width = `100%`;
+function nextQuestion() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < allQuestions[currentSection].length) {
+        loadQuestion();
+    } else {
+        document.getElementById('question-container').innerHTML = `<h3>Quiz Complete!</h3><p>You scored ${score} out of ${allQuestions[currentSection].length}.</p>`;
+        document.getElementById('explanation-box').classList.add('hidden');
+        document.getElementById('end-quiz-btn').classList.remove('hidden');
+        saveProgress();
+    }
+}
 
-    const winner = Object.keys(points).reduce((a, b) => points[a] > points[b] ? a : b);
-    const result = storeData[winner];
+// --- Progress & Levels ---
+function updateProgressBar() {
+    const total = allQuestions[currentSection].length;
+    const progress = (currentQuestionIndex / total) * 100;
+    document.getElementById('quiz-progress').style.width = `${progress}%`;
+}
 
-    document.getElementById('winning-profile').innerText = result.title;
-    document.getElementById('profile-description').innerText = result.desc;
+function saveProgress() {
+    let savedData = JSON.parse(localStorage.getItem('cpaDisneyProgress')) || { totalScore: 0, examsTaken: 0 };
+    savedData.totalScore += score;
+    savedData.examsTaken += 1;
+    localStorage.setItem('cpaDisneyProgress', JSON.stringify(savedData));
+}
 
-    const container = document.getElementById('links-container');
-    container.innerHTML = ''; 
+function updateHomeProgress() {
+    let savedData = JSON.parse(localStorage.getItem('cpaDisneyProgress')) || { totalScore: 0, examsTaken: 0 };
     
-    result.links.forEach(l => {
-        const link = document.createElement('a');
-        link.href = l.url;
-        link.target = "_blank"; 
-        link.className = 'shop-link';
-        link.innerText = l.name;
-        container.appendChild(link);
-    });
+    // Determine level based on total score across all time
+    let levelName = "Mouseketeer";
+    if (savedData.totalScore > 10) levelName = "Jedi Padawan";
+    if (savedData.totalScore > 30) levelName = "Avenger in Training";
+    if (savedData.totalScore > 50) levelName = "CPA Sorcerer Supreme ✨";
+
+    document.getElementById('user-level').innerText = levelName;
+    
+    // Fake overall progress bar based on an arbitrary "end goal" of 80 points
+    let percent = Math.min((savedData.totalScore / 80) * 100, 100);
+    document.getElementById('overall-progress').style.width = `${percent}%`;
 }
