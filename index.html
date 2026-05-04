@@ -8,42 +8,64 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 <body>
+    <div id="stars"></div>
+
     <div class="floating-characters">
         <div class="character mickey">🐭</div>
         <div class="character minnie">🎀</div>
         <div class="character elsa">❄️</div>
         <div class="character anna">🌻</div>
+        <div class="character cinderella">🥿</div>
+        <div class="character ariel">🧜‍♀️</div>
+        <div class="character rapunzel">☀️</div>
+        <div class="character tiana">🐸</div>
+        <div class="character belle">🌹</div>
     </div>
 
     <div id="app-container">
+        
         <div id="home-screen" class="screen active">
             <h1>✨ Magical CPA Prep ✨</h1>
+            <p class="subtitle">A dream is a wish your heart makes... and passing the CPA is a reality you create!</p>
+            
             <div class="stats-board">
                 <h2>Your Progress</h2>
-                <p>Level: <span id="user-level">1 (Mouseketeer)</span></p>
+                <p>Current Level: <span id="user-level">1 (Mouseketeer)</span></p>
                 <div class="progress-bar-container">
                     <div id="overall-progress" class="progress-fill"></div>
                 </div>
             </div>
             
             <div class="section-buttons">
-                <button onclick="startAIQuiz()">🤖 AI Study Buddy Pre-Quiz</button>
-                <button class="btn-aud" onclick="startQuiz('AUD')">Take AUD Exam</button>
-                <button class="btn-far" onclick="startQuiz('FAR')">Take FAR Exam</button>
-                <button class="btn-reg" onclick="startQuiz('REG')">Take REG Exam</button>
-                <button class="btn-bar" onclick="startQuiz('BAR')">Take BAR Exam</button>
+                <button onclick="showScreen('ai-screen')" class="btn-ai">🤖 Ask the Magic Mirror (AI Study Buddy)</button>
+                <hr class="divider">
+                <button class="btn-aud" onclick="startQuiz('AUD')">Take AUD Exam (Auditing)</button>
+                <button class="btn-far" onclick="startQuiz('FAR')">Take FAR Exam (Financial)</button>
+                <button class="btn-reg" onclick="startQuiz('REG')">Take REG Exam (Regulation)</button>
+                <button class="btn-bar" onclick="startQuiz('BAR')">Take BAR Exam (Business)</button>
             </div>
         </div>
 
         <div id="ai-screen" class="screen">
-            <h2>🤖 Simulated AI Study Buddy</h2>
-            <p>Let's warm up those brain cells before the big test!</p>
-            <div id="ai-flashcard">
+            <h2>🪄 The Magic Mirror Study Buddy</h2>
+            <p>What CPA topic would you like me to quiz you on?</p>
+            
+            <div class="search-container">
+                <input type="text" id="ai-topic" placeholder="e.g., 'fraud', 'tax', 'assets'...">
+                <button onclick="searchAITopic()">Quiz Me!</button>
+            </div>
+            
+            <div id="ai-flashcard" class="hidden">
                 <p id="ai-question" class="question-text"></p>
-                <button id="reveal-btn" onclick="revealAIAanswer()">Reveal Answer</button>
+                <button id="reveal-btn" onclick="revealAIAanswer()">Reveal Professional Answer</button>
                 <p id="ai-answer" class="hidden"></p>
             </div>
-            <button class="btn-home" onclick="goHome()">Back to Home</button>
+
+            <div id="ai-error" class="hidden explanation-box">
+                <p id="error-text"></p>
+            </div>
+            
+            <button class="btn-home" onclick="goHome()">Return to Castle Dashboard</button>
         </div>
 
         <div id="quiz-screen" class="screen">
@@ -58,7 +80,7 @@
             </div>
 
             <div id="explanation-box" class="hidden">
-                <h3>Whoops! 🎊</h3>
+                <h3>Incorrect! 🎊</h3>
                 <p id="explanation-text"></p>
                 <button onclick="nextQuestion()">Next Question</button>
             </div>
