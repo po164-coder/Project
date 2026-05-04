@@ -1,29 +1,29 @@
 [
   {
-    "id": 1,
-    "question": "What's your dream morning routine?",
+    "category": "tax",
+    "question": "How do you distinguish between tax avoidance and tax evasion in a client consultation?",
     "options": [
-      { "text": "Iced matcha & a 5-mile run", "profile": "sportsGirl" },
-      { "text": "Full glam & taking mirror selfies", "profile": "baddie" },
-      { "text": "Sleeping in & wearing fuzzy socks", "profile": "cozy" }
+      { "text": "Avoidance is legal planning; evasion is illegal non-payment.", "correct": true },
+      { "text": "They are the same under the current tax code.", "correct": false },
+      { "text": "Evasion is for corporations; avoidance is for individuals.", "correct": false }
     ]
   },
   {
-    "id": 2,
-    "question": "Pick your favorite accessory:",
+    "category": "investmentBanking",
+    "question": "If you could only use one statement to review a company's health, which would it be?",
     "options": [
-      { "text": "Weighted wristbands or a Stanley cup", "profile": "sportsGirl" },
-      { "text": "Chunky gold hoops & designer bag", "profile": "baddie" },
-      { "text": "A giant claw clip & a knit blanket", "profile": "cozy" }
+      { "text": "Income Statement", "correct": false },
+      { "text": "Cash Flow Statement", "correct": true },
+      { "text": "Balance Sheet", "correct": false }
     ]
   },
   {
-    "id": 3,
-    "question": "What’s the vibe for your room?",
+    "category": "audit",
+    "question": "What is the primary purpose of an audit engagement?",
     "options": [
-      { "text": "Clean, organized, and lots of plants", "profile": "sportsGirl" },
-      { "text": "LED lights and a vanity mirror", "profile": "baddie" },
-      { "text": "Candles, pillows, and soft lighting", "profile": "cozy" }
+      { "text": "To guarantee that fraud does not exist.", "correct": false },
+      { "text": "To provide reasonable assurance that financial statements are free of material misstatement.", "correct": true },
+      { "text": "To prepare the company's annual tax filings.", "correct": false }
     ]
   }
 ]
