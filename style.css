@@ -1,92 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap');
+
 :root {
-    --bg-pink: #ffe5ec;
-    --soft-pink: #ffc2d1;
-    --main-pink: #ff85a1;
-    --hot-pink: #ff477e;
-    --white: #ffffff;
+    --mickey-red: #E23636;
+    --mickey-yellow: #F0BD2D;
+    --magic-blue: #1C2E4A;
+    --elsa-ice: #90E0EF;
+    --anna-magenta: #9E2A2B;
+    --bg-gradient: linear-gradient(135deg, #0B192C 0%, #1C2E4A 100%);
+}
+
+* {
+    box-sizing: border-box;
+    font-family: 'Nunito', sans-serif;
 }
 
 body {
-    background-color: var(--bg-pink);
-    font-family: 'Poppins', sans-serif;
+    background: var(--bg-gradient);
+    color: white;
+    margin: 0;
+    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    margin: 0;
+    overflow: hidden; /* Keep flying characters inside */
 }
 
-.app-card {
-    background: var(--white);
-    width: 90%;
-    max-width: 450px;
+/* Character Blasting Animations */
+.floating-characters {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.character {
+    position: absolute;
+    font-size: 3rem;
+    opacity: 0.7;
+    animation: blast 15s infinite alternate ease-in-out;
+}
+
+.mickey { top: 10%; left: -10%; animation-duration: 12s; }
+.minnie { bottom: 20%; right: -10%; animation-duration: 14s; }
+.elsa { top: 40%; left: -10%; animation-duration: 18s; }
+.anna { top: 70%; right: -10%; animation-duration: 16s; }
+
+@keyframes blast {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    50% { transform: translate(50vw, 20vh) rotate(180deg) scale(1.5); }
+    100% { transform: translate(110vw, -10vh) rotate(360deg); }
+}
+
+/* Main App Container */
+#app-container {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 2px solid var(--mickey-yellow);
+    border-radius: 20px;
     padding: 30px;
-    border-radius: 40px;
-    box-shadow: 0 15px 35px rgba(255, 71, 126, 0.2);
+    width: 90%;
+    max-width: 600px;
     text-align: center;
+    z-index: 10;
+    box-shadow: 0 0 20px rgba(240, 189, 45, 0.3);
 }
 
-h1 { color: var(--hot-pink); margin-bottom: 5px; }
-p { color: var(--main-pink); font-size: 0.9rem; margin-bottom: 25px; }
+.screen { display: none; }
+.screen.active { display: block; animation: fadeIn 0.5s ease; }
 
-/* Progress Bar */
-.progress-bar {
-    background: var(--bg-pink);
-    height: 8px;
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h1 { color: var(--mickey-yellow); text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+
+/* Buttons */
+button {
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    border: none;
     border-radius: 10px;
-    margin-bottom: 20px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, filter 0.2s;
+}
+
+button:hover { transform: scale(1.05); filter: brightness(1.2); }
+
+.section-buttons button { background: white; color: var(--magic-blue); }
+.section-buttons .btn-aud { border-bottom: 5px solid var(--elsa-ice); }
+.section-buttons .btn-far { border-bottom: 5px solid var(--mickey-red); }
+.section-buttons .btn-reg { border-bottom: 5px solid var(--mickey-yellow); }
+.section-buttons .btn-bar { border-bottom: 5px solid var(--anna-magenta); }
+
+.btn-home { background: var(--mickey-red); color: white; }
+
+/* Progress Bars */
+.progress-bar-container {
+    background: rgba(0,0,0,0.3);
+    border-radius: 10px;
+    height: 20px;
+    width: 100%;
+    margin: 15px 0;
     overflow: hidden;
 }
-#progress-fill {
-    background: var(--hot-pink);
+
+.progress-fill {
     height: 100%;
+    background: var(--elsa-ice);
     width: 0%;
-    transition: width 0.4s ease;
+    transition: width 0.5s ease;
 }
 
-/* Quiz Buttons */
-#options-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.option-card {
-    background: var(--white);
-    border: 2px solid var(--soft-pink);
-    padding: 15px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: 0.3s;
-    color: var(--hot-pink);
-}
-
-.option-card:hover {
-    background: var(--soft-pink);
-    transform: scale(1.03);
-}
-
-/* Results */
-.hidden { display: none; }
-.crown-icon { font-size: 3rem; margin-bottom: 10px; }
-.shop-link {
-    display: block;
-    background: var(--bg-pink);
-    color: var(--hot-pink);
-    padding: 12px;
-    margin: 10px 0;
-    text-decoration: none;
-    border-radius: 15px;
-    font-weight: 600;
-}
-
-.retry-btn {
-    background: var(--hot-pink);
+/* Quiz UI */
+.option-btn {
+    background: rgba(255, 255, 255, 0.2);
     color: white;
-    border: none;
-    padding: 12px 25px;
-    border-radius: 30px;
-    margin-top: 20px;
-    cursor: pointer;
+    text-align: left;
+    border: 2px solid transparent;
 }
+
+.option-btn:hover { background: rgba(255, 255, 255, 0.4); }
+.option-btn.correct { background: #28a745; color: white; }
+.option-btn.wrong { background: var(--mickey-red); color: white; }
+
+#explanation-box {
+    background: rgba(226, 54, 54, 0.2);
+    border: 2px dashed var(--mickey-red);
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.hidden { display: none !important; }
