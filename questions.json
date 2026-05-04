@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "question": "What's your dream morning routine?",
+    "options": [
+      { "text": "Iced matcha & a 5-mile run", "profile": "sportsGirl" },
+      { "text": "Full glam & taking mirror selfies", "profile": "baddie" },
+      { "text": "Sleeping in & wearing fuzzy socks", "profile": "cozy" }
+    ]
+  },
+  {
+    "id": 2,
+    "question": "Pick your favorite accessory:",
+    "options": [
+      { "text": "Weighted wristbands or a Stanley cup", "profile": "sportsGirl" },
+      { "text": "Chunky gold hoops & designer bag", "profile": "baddie" },
+      { "text": "A giant claw clip & a knit blanket", "profile": "cozy" }
+    ]
+  },
+  {
+    "id": 3,
+    "question": "What’s the vibe for your room?",
+    "options": [
+      { "text": "Clean, organized, and lots of plants", "profile": "sportsGirl" },
+      { "text": "LED lights and a vanity mirror", "profile": "baddie" },
+      { "text": "Candles, pillows, and soft lighting", "profile": "cozy" }
+    ]
+  }
+]

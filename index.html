@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pink Wardrobe & Beauty</title>
+    <!-- Importing Poppins for a clean, modern fashion look -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="app-card">
+        <header>
+            <h1>Pink Wardrobe ✨</h1>
+            <p>Your Personalized Style Curator</p>
+        </header>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen">
+            <div class="progress-container">
+                <div class="progress-bar"><div id="progress-fill"></div></div>
+            </div>
+            <h2 id="question-text">Finding your aesthetic...</h2>
+            <div id="options-list">
+                <!-- JavaScript will inject buttons here -->
+            </div>
+        </div>
+
+        <!-- Results Screen (Hidden until quiz is done) -->
+        <div id="results-screen" class="hidden">
+            <div class="result-header">
+                <div class="icon-badge">💖</div>
+                <h2>You are a <span id="winning-profile"></span>!</h2>
+            </div>
+            
+            <p id="profile-description"></p>
+            
+            <div class="shop-section">
+                <h3>Shop Your Vibe:</h3>
+                <div id="links-container">
+                    <!-- Shop links will appear here -->
+                </div>
+            </div>
+            
+            <div class="actions">
+                <button class="retry-btn" onclick="location.reload()">Start Over</button>
+                <br>
+                <a href="YOUR_PORTFOLIO_URL_HERE" class="back-link">← Back to Portfolio</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ensure your app.js file is in the same folder -->
+    <script src="app.js"></script>
+</body>
+</html>

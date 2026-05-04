@@ -1,0 +1,92 @@
+:root {
+    --bg-pink: #ffe5ec;
+    --soft-pink: #ffc2d1;
+    --main-pink: #ff85a1;
+    --hot-pink: #ff477e;
+    --white: #ffffff;
+}
+
+body {
+    background-color: var(--bg-pink);
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.app-card {
+    background: var(--white);
+    width: 90%;
+    max-width: 450px;
+    padding: 30px;
+    border-radius: 40px;
+    box-shadow: 0 15px 35px rgba(255, 71, 126, 0.2);
+    text-align: center;
+}
+
+h1 { color: var(--hot-pink); margin-bottom: 5px; }
+p { color: var(--main-pink); font-size: 0.9rem; margin-bottom: 25px; }
+
+/* Progress Bar */
+.progress-bar {
+    background: var(--bg-pink);
+    height: 8px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+#progress-fill {
+    background: var(--hot-pink);
+    height: 100%;
+    width: 0%;
+    transition: width 0.4s ease;
+}
+
+/* Quiz Buttons */
+#options-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.option-card {
+    background: var(--white);
+    border: 2px solid var(--soft-pink);
+    padding: 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: 0.3s;
+    color: var(--hot-pink);
+}
+
+.option-card:hover {
+    background: var(--soft-pink);
+    transform: scale(1.03);
+}
+
+/* Results */
+.hidden { display: none; }
+.crown-icon { font-size: 3rem; margin-bottom: 10px; }
+.shop-link {
+    display: block;
+    background: var(--bg-pink);
+    color: var(--hot-pink);
+    padding: 12px;
+    margin: 10px 0;
+    text-decoration: none;
+    border-radius: 15px;
+    font-weight: 600;
+}
+
+.retry-btn {
+    background: var(--hot-pink);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    margin-top: 20px;
+    cursor: pointer;
+}
