@@ -1,22 +1,29 @@
 [
   {
-    "category": "investmentBanking",
-    "question": "If Enterprise Value is $100M and Net Debt is $20M, what is the Equity Value?",
+    "id": 1,
+    "question": "What's your dream morning routine?",
     "options": [
-      { "text": "$120M", "correct": false },
-      { "text": "$80M", "correct": true },
-      { "text": "$100M", "correct": false }
-    ],
-    "explanation": "Equity Value = Enterprise Value - Net Debt. Therefore, $100M - $20M = $80M."
+      { "text": "Iced matcha & a 5-mile run", "profile": "sportsGirl" },
+      { "text": "Full glam & taking mirror selfies", "profile": "baddie" },
+      { "text": "Sleeping in & wearing fuzzy socks", "profile": "cozy" }
+    ]
   },
   {
-    "category": "tax",
-    "question": "Which schedule is used to report itemized deductions for individuals?",
+    "id": 2,
+    "question": "Pick your favorite accessory:",
     "options": [
-      { "text": "Schedule A", "correct": true },
-      { "text": "Schedule C", "correct": false },
-      { "text": "Schedule SE", "correct": false }
-    ],
-    "explanation": "Schedule A is specifically used for itemized deductions like medical expenses, taxes paid, and interest."
+      { "text": "Weighted wristbands or a Stanley cup", "profile": "sportsGirl" },
+      { "text": "Chunky gold hoops & designer bag", "profile": "baddie" },
+      { "text": "A giant claw clip & a knit blanket", "profile": "cozy" }
+    ]
+  },
+  {
+    "id": 3,
+    "question": "What’s the vibe for your room?",
+    "options": [
+      { "text": "Clean, organized, and lots of plants", "profile": "sportsGirl" },
+      { "text": "LED lights and a vanity mirror", "profile": "baddie" },
+      { "text": "Candles, pillows, and soft lighting", "profile": "cozy" }
+    ]
   }
 ]
