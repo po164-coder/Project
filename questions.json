@@ -31,7 +31,7 @@
         "Compare payroll costs with entity standards or budgets."
       ],
       "correctAnswer": 1,
-      "explanation": "Observing the distribution of paychecks is a test of controls to ensure that fictitious employees are not receiving pay."
+      "explanation": "Observing the distribution of paychecks is a test of controls to ensure that fictitious employees (ghost employees) are not receiving pay."
     },
     {
       "question": "In assessing control risk, an auditor ordinarily selects from a variety of techniques, including:",
@@ -53,7 +53,7 @@
         "The specific auditing standards not followed."
       ],
       "correctAnswer": 1,
-      "explanation": "A scope limitation requires the auditor to state that they could not obtain sufficient appropriate audit evidence to base a full opinion on."
+      "explanation": "A scope limitation requires the auditor to state that they could not obtain sufficient appropriate audit evidence to base a full, unqualified opinion on."
     }
   ],
   "FAR": [
@@ -66,7 +66,7 @@
         "End of the fiscal year"
       ],
       "correctAnswer": 2,
-      "explanation": "Retained earnings is decreased (debited) and a liability is created (credited) on the date of declaration."
+      "explanation": "Retained earnings is decreased (debited) and a liability is created (credited) immediately on the date of declaration."
     },
     {
       "question": "Which of the following should be disclosed in a summary of significant accounting policies?",
@@ -77,10 +77,10 @@
         "Related party transactions"
       ],
       "correctAnswer": 1,
-      "explanation": "The summary of significant accounting policies discloses the principles and methods chosen by management, such as the criteria for cash equivalents."
+      "explanation": "The summary of significant accounting policies discloses the principles and methods chosen by management, such as the criteria for what counts as cash equivalents."
     },
     {
-      "question": "Under U.S. GAAP, research and development costs must be:",
+      "question": "Under U.S. GAAP, research and development costs must generally be:",
       "options": [
         "Capitalized and amortized over 5 years.",
         "Expensed as incurred.",
@@ -91,7 +91,7 @@
       "explanation": "Under U.S. GAAP, almost all research and development costs must be expensed as they are incurred."
     },
     {
-      "question": "In a period of rising prices, which inventory method generally results in the lowest net income?",
+      "question": "In a period of consistently rising prices, which inventory method generally results in the lowest net income?",
       "options": [
         "FIFO",
         "LIFO",
@@ -99,7 +99,7 @@
         "Specific Identification"
       ],
       "correctAnswer": 1,
-      "explanation": "LIFO matches the most recent, higher costs against revenues, resulting in a higher Cost of Goods Sold (COGS) and a lower net income."
+      "explanation": "LIFO matches the most recent, higher costs against revenues, resulting in a higher Cost of Goods Sold (COGS) and therefore a lower net income."
     },
     {
       "question": "Treasury stock transactions can never result in an increase to:",
@@ -156,7 +156,7 @@
         "Paying routine business debts."
       ],
       "correctAnswer": 2,
-      "explanation": "Ordinary business decisions require a majority vote, but admitting a new partner requires the unanimous consent of all existing partners."
+      "explanation": "Ordinary business decisions require a majority vote, but admitting a new partner changes the fundamental structure and requires the unanimous consent of all existing partners."
     },
     {
       "question": "Which entity provides owners with limited liability while allowing them to participate in management, and avoids double taxation?",
@@ -167,7 +167,7 @@
         "Limited Partnership"
       ],
       "correctAnswer": 2,
-      "explanation": "An LLC offers the limited liability of a corporation, the pass-through taxation of a partnership, and allows owners to participate in management."
+      "explanation": "An LLC offers the limited liability of a corporation, the pass-through taxation of a partnership, and allows all owners (members) to participate in management."
     }
   ],
   "BAR": [
@@ -213,7 +213,7 @@
         "A cost that varies directly with production volume."
       ],
       "correctAnswer": 1,
-      "explanation": "A sunk cost is a past cost that cannot be changed by current or future decisions, and therefore should be ignored in decision-making."
+      "explanation": "A sunk cost is a past cost that cannot be changed by current or future decisions, and therefore should always be ignored in decision-making."
     },
     {
       "question": "In the balanced scorecard approach, which perspective focuses on employee training and corporate culture?",
@@ -224,7 +224,7 @@
         "Learning and Growth"
       ],
       "correctAnswer": 3,
-      "explanation": "The Learning and Growth perspective focuses on human capital (training, skills), information capital (systems), and organizational capital (culture) required to support processes."
+      "explanation": "The Learning and Growth perspective focuses on human capital (training, skills), information capital (systems), and organizational capital (culture) required to support internal processes."
     }
   ]
 }
