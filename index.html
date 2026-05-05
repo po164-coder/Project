@@ -11,82 +11,102 @@
     <div id="stars"></div>
 
     <div class="floating-characters">
-        <div class="character mickey">🐭</div>
-        <div class="character minnie">🎀</div>
-        <div class="character elsa">❄️</div>
-        <div class="character anna">🌻</div>
-        <div class="character cinderella">🥿</div>
-        <div class="character ariel">🧜‍♀️</div>
-        <div class="character rapunzel">☀️</div>
-        <div class="character tiana">🐸</div>
-        <div class="character belle">🌹</div>
+        <div class="character mickey">🐭</div><div class="character minnie">🎀</div>
+        <div class="character elsa">❄️</div><div class="character anna">🌻</div>
+        <div class="character cinderella">🥿</div><div class="character ariel">🧜‍♀️</div>
+        <div class="character rapunzel">☀️</div><div class="character tiana">🐸</div>
     </div>
 
-    <div id="app-container">
+    <div id="main-layout">
         
-        <div id="home-screen" class="screen active">
-            <h1>✨ Magical CPA Prep ✨</h1>
-            <p class="subtitle">A dream is a wish your heart makes... and passing the CPA is a reality you create!</p>
-            
-            <div class="stats-board">
-                <h2>Your Progress</h2>
-                <p>Current Level: <span id="user-level">1 (Mouseketeer)</span></p>
-                <div class="progress-bar-container">
-                    <div id="overall-progress" class="progress-fill"></div>
+        <aside id="dashboard-sidebar">
+            <h2>🏰 Castle Stats</h2>
+            <div class="stat-box">
+                <h3>Current Level</h3>
+                <p id="user-level" class="glow-text">1 - Mouseketeer</p>
+                <div class="progress-bar-container mini">
+                    <div id="level-progress" class="progress-fill"></div>
                 </div>
             </div>
             
-            <div class="section-buttons">
-                <button onclick="showScreen('ai-screen')" class="btn-ai">🤖 Ask the Magic Mirror (AI Study Buddy)</button>
-                <hr class="divider">
-                <button class="btn-aud" onclick="startQuiz('AUD')">Take AUD Exam (Auditing)</button>
-                <button class="btn-far" onclick="startQuiz('FAR')">Take FAR Exam (Financial)</button>
-                <button class="btn-reg" onclick="startQuiz('REG')">Take REG Exam (Regulation)</button>
-                <button class="btn-bar" onclick="startQuiz('BAR')">Take BAR Exam (Business)</button>
-            </div>
-        </div>
-
-        <div id="ai-screen" class="screen">
-            <h2>🪄 The Magic Mirror Study Buddy</h2>
-            <p>What CPA topic would you like me to quiz you on?</p>
-            
-            <div class="search-container">
-                <input type="text" id="ai-topic" placeholder="e.g., 'fraud', 'tax', 'assets'...">
-                <button onclick="searchAITopic()">Quiz Me!</button>
-            </div>
-            
-            <div id="ai-flashcard" class="hidden">
-                <p id="ai-question" class="question-text"></p>
-                <button id="reveal-btn" onclick="revealAIAanswer()">Reveal Professional Answer</button>
-                <p id="ai-answer" class="hidden"></p>
+            <div class="stat-box">
+                <h3>Total Questions Mastered</h3>
+                <p id="total-score" class="big-number">0</p>
             </div>
 
-            <div id="ai-error" class="hidden explanation-box">
-                <p id="error-text"></p>
+            <div class="stat-box alert-box">
+                <h3>⚠️ Focus On:</h3>
+                <p id="weakest-section">Take some quizzes to find out!</p>
             </div>
-            
-            <button class="btn-home" onclick="goHome()">Return to Castle Dashboard</button>
-        </div>
+            <button class="btn-home" onclick="goHome()">🏠 Home Menu</button>
+        </aside>
 
-        <div id="quiz-screen" class="screen">
-            <h2 id="quiz-title">Section Name</h2>
-            <div class="progress-bar-container">
-                <div id="quiz-progress" class="progress-fill"></div>
-            </div>
-            
-            <div id="question-container">
-                <h3 id="question-text">Question goes here</h3>
-                <div id="options-container"></div>
+        <main id="app-container">
+            <div id="home-screen" class="screen active">
+                <h1>✨ Magical CPA Prep ✨</h1>
+                <p class="subtitle">A dream is a wish your heart makes... and passing the CPA is a reality you create!</p>
+                
+                <div class="section-buttons">
+                    <button onclick="showScreen('ai-screen')" class="btn-ai pulse-anim">🤖 Ask the Magic Mirror (AI Buddy)</button>
+                    <hr class="divider">
+                    <button class="btn-aud" onclick="startQuiz('AUD')">Take AUD Exam (Batch of 5)</button>
+                    <button class="btn-far" onclick="startQuiz('FAR')">Take FAR Exam (Batch of 5)</button>
+                    <button class="btn-reg" onclick="startQuiz('REG')">Take REG Exam (Batch of 5)</button>
+                    <button class="btn-bar" onclick="startQuiz('BAR')">Take BAR Exam (Batch of 5)</button>
+                </div>
             </div>
 
-            <div id="explanation-box" class="hidden">
-                <h3>Incorrect! 🎊</h3>
-                <p id="explanation-text"></p>
-                <button onclick="nextQuestion()">Next Question</button>
+            <div id="ai-screen" class="screen">
+                <h2>🪄 The Magic Mirror Study Buddy</h2>
+                <p>Search a topic, type your answer, and see if you match the mirror!</p>
+                
+                <div class="search-container">
+                    <input type="text" id="ai-topic" placeholder="e.g., 'fraud', 'tax', 'assets'...">
+                    <button onclick="searchAITopic()">Find Question</button>
+                </div>
+                
+                <div id="ai-flashcard" class="hidden">
+                    <p id="ai-question" class="question-text"></p>
+                    <textarea id="user-ai-answer" placeholder="Type your answer here..."></textarea>
+                    <button id="submit-ai-btn" onclick="submitAIAnswer()" class="btn-ai">Check Answer</button>
+                    
+                    <div id="ai-reveal-area" class="hidden explanation-box">
+                        <h3>Mirror's Professional Answer:</h3>
+                        <p id="ai-answer"></p>
+                        <button onclick="resetAISearch()">Ask Another Question</button>
+                    </div>
+                </div>
+
+                <div id="ai-error" class="hidden explanation-box">
+                    <p id="error-text"></p>
+                </div>
             </div>
-            
-            <button id="end-quiz-btn" class="hidden btn-home" onclick="goHome()">Finish & Save Progress</button>
-        </div>
+
+            <div id="quiz-screen" class="screen">
+                <h2 id="quiz-title">Section Name</h2>
+                <p id="batch-counter">Question 1 of 5</p>
+                <div class="progress-bar-container">
+                    <div id="quiz-progress" class="progress-fill"></div>
+                </div>
+                
+                <div id="question-container">
+                    <h3 id="question-text">Question goes here</h3>
+                    <div id="options-container"></div>
+                </div>
+
+                <div id="explanation-box" class="hidden">
+                    <h3>Incorrect! 🎊</h3>
+                    <p id="explanation-text"></p>
+                    <button onclick="nextQuestion()">Next Question</button>
+                </div>
+                
+                <div id="batch-complete" class="hidden">
+                    <h3 class="glow-text">Batch Complete!</h3>
+                    <p id="batch-score-text"></p>
+                    <button class="btn-aud" onclick="startQuiz(currentSection)">🔄 Take Another 5 Questions</button>
+                </div>
+            </div>
+        </main>
     </div>
 
     <script src="app.js"></script>
