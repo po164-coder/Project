@@ -1,36 +1,50 @@
 let allQuestions = {};
 let currentSection = '';
+let currentBatch = [];
 let currentQuestionIndex = 0;
-let score = 0;
+let batchScore = 0;
+
+// The 10 Epic Disney CPA Levels!
+const disneyLevels = [
+    { threshold: 0, name: "1 - Mouseketeer 🐭" },
+    { threshold: 10, name: "2 - Star Command Recruit 🚀" },
+    { threshold: 25, name: "3 - Jedi Padawan ⚔️" },
+    { threshold: 45, name: "4 - Prince/Princess of Genovia 👑" },
+    { threshold: 70, name: "5 - Wakandan Scholar 🐾" },
+    { threshold: 100, name: "6 - Keyblade Master 🗝️" },
+    { threshold: 150, name: "7 - Fairy Godmother ✨" },
+    { threshold: 200, name: "8 - Jedi Knight 🌌" },
+    { threshold: 250, name: "9 - Sorcerer Supreme 🪄" },
+    { threshold: 300, name: "10 - Genie of the Lamp 🧞‍♂️ (Max Level!)" }
+];
 
 // Load questions on startup
 fetch('questions.json')
     .then(response => response.json())
     .then(data => {
         allQuestions = data;
-        updateHomeProgress();
+        updateDashboard();
     })
     .catch(error => console.error("Error loading questions:", error));
 
-// Navigation
+// --- Navigation ---
 function showScreen(screenId) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.getElementById(screenId).classList.add('active');
 }
 
 function goHome() {
-    updateHomeProgress();
+    updateDashboard();
     showScreen('home-screen');
 }
 
-// --- The Magic Mirror AI Study Buddy ---
-// Add as many keywords and questions here as you want!
+// --- The Magic Mirror AI Chatbot ---
 const flashcardBank = [
     { keywords: ["fraud", "steal", "embezzle"], q: "What are the primary components of the Fraud Triangle?", a: "Opportunity, Pressure (or Incentive), and Rationalization." },
-    { keywords: ["audit", "risk", "model"], q: "What is the Audit Risk Model?", a: "Audit Risk = Inherent Risk × Control Risk × Detection Risk." },
-    { keywords: ["tax", "deduction", "dependents"], q: "What is the gross income test limit for a qualifying relative?", a: "The dependent's gross income must be less than the exemption amount for the year." },
-    { keywords: ["asset", "depreciation", "macrs"], q: "Under MACRS, what is the standard recovery period for office furniture and fixtures?", a: "7 years." },
-    { keywords: ["ethics", "independence", "aicpa"], q: "According to the AICPA, when is independence impaired by financial interests?", a: "When a covered member owns any direct financial interest or a material indirect financial interest in a client." }
+    { keywords: ["audit", "risk"], q: "What is the Audit Risk Model?", a: "Audit Risk = Inherent Risk × Control Risk × Detection Risk." },
+    { keywords: ["tax", "dependents"], q: "What is the gross income test limit for a qualifying relative?", a: "The dependent's gross income must be less than the exemption amount for the year." },
+    { keywords: ["asset", "macrs"], q: "Under MACRS, what is the standard recovery period for office furniture and fixtures?", a: "7 years." },
+    { keywords: ["ethics", "independence"], q: "According to the AICPA, when is independence impaired by financial interests?", a: "When a covered member owns any direct financial interest or a material indirect financial interest in a client." }
 ];
 
 function searchAITopic() {
@@ -38,64 +52,65 @@ function searchAITopic() {
     const flashcardDiv = document.getElementById('ai-flashcard');
     const errorDiv = document.getElementById('ai-error');
     
-    // Reset views
+    // Reset
     flashcardDiv.classList.add('hidden');
     errorDiv.classList.add('hidden');
-    document.getElementById('ai-answer').classList.add('hidden');
-    document.getElementById('reveal-btn').classList.remove('hidden');
+    document.getElementById('ai-reveal-area').classList.add('hidden');
+    document.getElementById('user-ai-answer').value = '';
+    document.getElementById('submit-ai-btn').classList.remove('hidden');
 
     if (!input) return;
 
-    // Search for keywords
-    let foundCard = null;
-    for (let card of flashcardBank) {
-        if (card.keywords.some(keyword => input.includes(keyword))) {
-            foundCard = card;
-            break;
-        }
-    }
+    let foundCard = flashcardBank.find(card => card.keywords.some(k => input.includes(k)));
 
     if (foundCard) {
         document.getElementById('ai-question').innerText = foundCard.q;
         document.getElementById('ai-answer').innerText = foundCard.a;
         flashcardDiv.classList.remove('hidden');
     } else {
-        // Princess Fallback Responses
-        const fallbacks = [
-            "🧜‍♀️ Ariel says: 'I don't have a gadget or gizmo for that topic yet! Try searching for fraud, tax, or assets!'",
-            "🥿 Cinderella says: 'Oh my! The clock struck midnight on that topic. Try typing audit or risk!'",
-            "🐸 Princess Tiana says: 'You gotta dig a little deeper! Try searching for a specific CPA keyword like ethics or depreciation!'"
-        ];
-        document.getElementById('error-text').innerText = fallbacks[Math.floor(Math.random() * fallbacks.length)];
+        errorDiv.innerHTML = "<p>🧞‍♂️ Genie says: 'I don't have that wish granted yet! Try searching for fraud, audit, tax, or assets!'</p><button onclick='resetAISearch()'>Try Again</button>";
         errorDiv.classList.remove('hidden');
     }
 }
 
-function revealAIAanswer() {
-    document.getElementById('ai-answer').classList.remove('hidden');
-    document.getElementById('reveal-btn').classList.add('hidden');
+function submitAIAnswer() {
+    document.getElementById('submit-ai-btn').classList.add('hidden');
+    document.getElementById('ai-reveal-area').classList.remove('hidden');
 }
 
-// --- Main Quiz Logic ---
+function resetAISearch() {
+    document.getElementById('ai-topic').value = '';
+    document.getElementById('ai-flashcard').classList.add('hidden');
+    document.getElementById('ai-error').classList.add('hidden');
+}
+
+// --- Main Quiz Logic (Batches of 5) ---
 function startQuiz(section) {
     if (!allQuestions[section] || allQuestions[section].length === 0) {
-        alert("Oops! Make sure you added questions to this section in your questions.json file.");
+        alert("Oops! Make sure your questions.json has questions for " + section);
         return;
     }
     
     currentSection = section;
     currentQuestionIndex = 0;
-    score = 0;
+    batchScore = 0;
+    
+    // Shuffle all questions for this section and slice exactly 5!
+    let shuffled = [...allQuestions[section]].sort(() => 0.5 - Math.random());
+    currentBatch = shuffled.slice(0, 5);
     
     document.getElementById('quiz-title').innerText = `${section} Exam`;
-    document.getElementById('end-quiz-btn').classList.add('hidden');
+    document.getElementById('batch-complete').classList.add('hidden');
+    document.getElementById('question-container').classList.remove('hidden');
+    
     showScreen('quiz-screen');
     loadQuestion();
 }
 
 function loadQuestion() {
-    const qData = allQuestions[currentSection][currentQuestionIndex];
-    document.getElementById('question-text').innerText = `Question ${currentQuestionIndex + 1}: ${qData.question}`;
+    const qData = currentBatch[currentQuestionIndex];
+    document.getElementById('batch-counter').innerText = `Question ${currentQuestionIndex + 1} of ${currentBatch.length}`;
+    document.getElementById('question-text').innerText = qData.question;
     
     const optionsContainer = document.getElementById('options-container');
     optionsContainer.innerHTML = '';
@@ -116,67 +131,93 @@ function checkAnswer(selectedIndex, btnElement, qData) {
     const buttons = document.querySelectorAll('.option-btn');
     buttons.forEach(b => b.disabled = true); 
 
-    if (selectedIndex === qData.correctAnswer) {
+    let isCorrect = (selectedIndex === qData.correctAnswer);
+
+    if (isCorrect) {
         btnElement.classList.add('correct');
-        score++;
+        batchScore++;
         setTimeout(nextQuestion, 1200); 
     } else {
         btnElement.classList.add('wrong');
         buttons[qData.correctAnswer].classList.add('correct');
-        
         triggerWrongConfetti();
-        
-        const expBox = document.getElementById('explanation-box');
         document.getElementById('explanation-text').innerText = qData.explanation;
-        expBox.classList.remove('hidden');
+        document.getElementById('explanation-box').classList.remove('hidden');
     }
+
+    saveSectionStats(currentSection, isCorrect);
 }
 
 function triggerWrongConfetti() {
-    confetti({
-        particleCount: 150,
-        spread: 80,
-        origin: { y: 0.5 },
-        colors: ['#E23636', '#2C1B4D', '#000000'] // Darker colors for wrong answers!
-    });
+    confetti({ particleCount: 150, spread: 80, origin: { y: 0.5 }, colors: ['#E23636', '#2C1B4D'] });
 }
 
 function nextQuestion() {
     currentQuestionIndex++;
-    if (currentQuestionIndex < allQuestions[currentSection].length) {
+    if (currentQuestionIndex < currentBatch.length) {
         loadQuestion();
     } else {
-        document.getElementById('question-container').innerHTML = `<h3>Section Complete!</h3><p>You scored ${score} out of ${allQuestions[currentSection].length}.</p>`;
+        // End of Batch!
+        document.getElementById('question-container').classList.add('hidden');
         document.getElementById('explanation-box').classList.add('hidden');
-        document.getElementById('end-quiz-btn').classList.remove('hidden');
-        saveProgress();
+        document.getElementById('batch-score-text').innerText = `You scored ${batchScore} out of ${currentBatch.length}!`;
+        document.getElementById('batch-complete').classList.remove('hidden');
+        updateDashboard();
     }
 }
 
-// Progress Tracking
+// --- Dashboard & Progress Tracking ---
 function updateProgressBar() {
-    const total = allQuestions[currentSection].length;
-    const progress = (currentQuestionIndex / total) * 100;
+    const progress = (currentQuestionIndex / currentBatch.length) * 100;
     document.getElementById('quiz-progress').style.width = `${progress}%`;
 }
 
-function saveProgress() {
-    let savedData = JSON.parse(localStorage.getItem('magicalCPA')) || { totalScore: 0 };
-    savedData.totalScore += score;
-    localStorage.setItem('magicalCPA', JSON.stringify(savedData));
+function saveSectionStats(section, isCorrect) {
+    let stats = JSON.parse(localStorage.getItem('cpaStats')) || {};
+    if (!stats[section]) stats[section] = { correct: 0, total: 0 };
+    
+    stats[section].total += 1;
+    if (isCorrect) stats[section].correct += 1;
+    
+    localStorage.setItem('cpaStats', JSON.stringify(stats));
 }
 
-function updateHomeProgress() {
-    let savedData = JSON.parse(localStorage.getItem('magicalCPA')) || { totalScore: 0 };
+function updateDashboard() {
+    let stats = JSON.parse(localStorage.getItem('cpaStats')) || {};
     
-    let levelName = "1 (Mouseketeer)";
-    if (savedData.totalScore > 10) levelName = "2 (Jedi Padawan)";
-    if (savedData.totalScore > 30) levelName = "3 (Avenger in Training)";
-    if (savedData.totalScore > 50) levelName = "4 (CPA Sorcerer Supreme ✨)";
+    // Calculate Total Score
+    let totalCorrect = 0;
+    let weakestSection = "Keep playing!";
+    let lowestPercent = 100;
 
-    document.getElementById('user-level').innerText = levelName;
-    
-    // Assuming 80 is the max score across all tests combined
-    let percent = Math.min((savedData.totalScore / 80) * 100, 100);
-    document.getElementById('overall-progress').style.width = `${percent}%`;
+    for (let sec in stats) {
+        totalCorrect += stats[sec].correct;
+        let percent = (stats[sec].correct / stats[sec].total) * 100;
+        if (percent < lowestPercent && stats[sec].total > 2) { // Need at least 3 attempts to judge
+            lowestPercent = percent;
+            weakestSection = `${sec} (${Math.round(percent)}% Accuracy)`;
+        }
+    }
+
+    document.getElementById('total-score').innerText = totalCorrect;
+    document.getElementById('weakest-section').innerText = weakestSection;
+
+    // Determine Disney Level
+    let currentLevelObj = disneyLevels[0];
+    let nextLevelObj = disneyLevels[1];
+
+    for (let i = 0; i < disneyLevels.length; i++) {
+        if (totalCorrect >= disneyLevels[i].threshold) {
+            currentLevelObj = disneyLevels[i];
+            nextLevelObj = disneyLevels[i + 1] || disneyLevels[i];
+        }
+    }
+
+    document.getElementById('user-level').innerText = currentLevelObj.name;
+
+    // Mini Progress bar for the next level
+    let range = nextLevelObj.threshold - currentLevelObj.threshold;
+    let progressIntoLevel = totalCorrect - currentLevelObj.threshold;
+    let percentToNext = range === 0 ? 100 : (progressIntoLevel / range) * 100;
+    document.getElementById('level-progress').style.width = `${percentToNext}%`;
 }
